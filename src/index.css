@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes showChar {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .animated-placeholder {
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+  }
