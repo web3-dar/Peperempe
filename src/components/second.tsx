@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import vid from '../images/video2.mp4';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import music from '../music/hbd.mp3'; // Importing your music 
+import music from '../music/hbd.mp3'; // Importing your music
 
 const WishesPage: React.FC = () => {
   const fullText = [
@@ -29,19 +29,25 @@ const WishesPage: React.FC = () => {
     "....",
     "....",
     '- Damilola'
-  ]; // Your long text as an array of lines
+  ];
   const displayDuration = 1500; // Duration to display each full text in milliseconds
   const [displayedText, setDisplayedText] = useState(fullText[0]); // Initialize with the first text
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null); // Store audio object here
 
-  // Handle background music on page load
-  useEffect(() => {
-    const audio = new Audio(music); // Correctly initializing with the imported music file
-    audio.loop = true; // Loop the music
-
-    audio.play().catch((error) => {
-      console.log('Error playing audio:', error); // Audio won't autoplay without user interaction
+  // Handle background music on user interaction
+  const startAudio = () => {
+    if (!audio) {
+      const newAudio = new Audio(music);
+      newAudio.loop = true;
+      setAudio(newAudio);
+    }
+    audio?.play().catch((error) => {
+      console.log('Error playing audio:', error);
     });
+  };
 
+  // Text display logic
+  useEffect(() => {
     const displayInterval = setInterval(() => {
       setDisplayedText((prevText) => {
         const currentIndex = fullText.indexOf(prevText); // Get the current index from the displayed text
@@ -52,8 +58,6 @@ const WishesPage: React.FC = () => {
 
     return () => {
       clearInterval(displayInterval); // Clean up the interval
-      audio.pause();
-      audio.currentTime = 0;
     };
   }, [fullText, displayDuration]);
 
@@ -69,6 +73,7 @@ const WishesPage: React.FC = () => {
         muted
         loop
         playsInline // Added for better mobile compatibility
+        onCanPlay={() => startAudio()} // Start audio after the video is ready to play
       >
         <source src={vid} type="video/mp4" />
         Your browser does not support the video tag.

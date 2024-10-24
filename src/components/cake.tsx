@@ -28,14 +28,21 @@ const VideoInputComponent: React.FC = () => {
 
   // Automatically change image every second
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setTimeout>; // Change type to ReturnType<typeof setTimeout>
     if (showImages) {
       interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 1500); // Change image every 1.5 seconds
+      }, 1500); // Change image every second
     }
     return () => clearInterval(interval);
   }, [showImages]);
+
+  // Handle button click to start animations
+  const handleStartAnimation = () => {
+    setInputVisible(true);
+    setBigTextVisible(false);
+    setShowImages(false);
+  };
 
   // Handle the input placeholder animation and text display
   const handleInputFocus = () => {
@@ -76,7 +83,8 @@ const VideoInputComponent: React.FC = () => {
         autoPlay
         muted
         loop
-        playsInline // Added for better mobile compatibility
+        playsInline // Ensure video plays inline on iOS
+        poster="/images/fallback-image.jpg" // Fallback image in case the video fails to load
       >
         <source src={videoFile} type="video/mp4" />
         Your browser does not support the video tag.
@@ -123,7 +131,7 @@ const VideoInputComponent: React.FC = () => {
 
             {/* Image Card with Text Overlay */}
             <div className="relative flex justify-center">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden opacity-80 w-4/5">
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden opacity-80 w-4/5"> {/* Set width to 80% */}
                 <img
                   src={images[currentIndex].src}
                   alt="Birthday Wish"
@@ -139,7 +147,10 @@ const VideoInputComponent: React.FC = () => {
 
         {/* Button to start the input field and image/text animation */}
         <button
-          onClick={handleInputFocus}
+          onClick={() => {
+            handleStartAnimation();
+            handleInputFocus();
+          }}
           className="mt-4 px-4 py-2 bg-yellow-500 text-black font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition"
         >
           I go stress you!
