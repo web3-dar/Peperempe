@@ -5,7 +5,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import music from '../music/hbd.mp3'; // Importing your music file
+import music from '../music/Shoday_-_Queen_More_feat_Batife__Vistanaij.com.ng.mp3'; // Importing your music file
 
 const WelcomePage: React.FC = () => {
   // Handle background music on page load
