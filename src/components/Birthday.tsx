@@ -11,7 +11,6 @@ const WelcomePage: React.FC = () => {
   // Handle background music on page load
   useEffect(() => {
     const audio = new Audio(music); // Correctly initializing with the imported music file
-     // Optional: Adjust volume
     audio.loop = true; // Loop the music
 
     audio.play().catch((error) => {
@@ -35,6 +34,7 @@ const WelcomePage: React.FC = () => {
         autoPlay
         muted
         loop
+        playsInline // Added playsInline attribute
       >
         <source src={vid} type="video/mp4" />
       </video>
@@ -56,7 +56,7 @@ const WelcomePage: React.FC = () => {
         {/* Link to Wishes Page */}
         <Link to="/wishes">
           <button className="mt-8 px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition">
-          <FontAwesomeIcon icon={faHeart} /> Click here <FontAwesomeIcon icon={faHeart} /> 
+            <FontAwesomeIcon icon={faHeart} /> Click here <FontAwesomeIcon icon={faHeart} />
           </button>
         </Link>
       </div>

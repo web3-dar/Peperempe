@@ -68,8 +68,10 @@ const WishesPage: React.FC = () => {
         autoPlay
         muted
         loop
+        playsInline // Added for better mobile compatibility
       >
         <source src={vid} type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
 
       {/* Overlay content */}
@@ -79,7 +81,7 @@ const WishesPage: React.FC = () => {
           {displayedText} {/* Display the current text */}
         </h1>
 
-        {/* Link to Wishes Page */}
+        {/* Link to Cake Page */}
         <Link to="/cake">
           <button className="mt-8 px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg shadow-lg hover:bg-yellow-300 transition">
             Click here
